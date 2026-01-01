@@ -1,0 +1,192 @@
+.gallery {
+  min-height: 100vh;
+}
+
+.heroSection {
+  background: linear-gradient(135deg, rgba(46, 125, 50, 0.1) 0%, rgba(21, 101, 192, 0.1) 100%);
+  padding: 120px 0 var(--spacing-2xl);
+  text-align: center;
+}
+
+.pageTitle {
+  font-size: var(--font-size-4xl);
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-lg);
+  font-weight: 700;
+}
+
+.introText {
+  font-size: var(--font-size-xl);
+  color: var(--color-text);
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.galleryItem {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.galleryItem:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 aspect ratio */
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.galleryImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.galleryItem:hover .galleryImage {
+  transform: scale(1.05);
+}
+
+.imageOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: var(--spacing-md);
+  transform: translateY(100%);
+  transition: transform var(--transition-base);
+}
+
+.galleryItem:hover .imageOverlay {
+  transform: translateY(0);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-lg);
+  cursor: pointer;
+}
+
+.modalContent {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  cursor: default;
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-full);
+  width: 40px;
+  height: 40px;
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  transition: background-color var(--transition-base);
+}
+
+.closeButton:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.modalImage {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.modalCaption {
+  text-align: center;
+  margin-top: var(--spacing-md);
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.imageCaption {
+  color: var(--color-white);
+  font-weight: 500;
+  margin: 0;
+}
+
+.note {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--color-text-light);
+  line-height: 1.8;
+}
+
+.contactLink {
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.contactLink:hover {
+  color: var(--color-primary-dark);
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .introText {
+    font-size: var(--font-size-lg);
+  }
+
+  .galleryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+

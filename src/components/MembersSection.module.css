@@ -1,0 +1,151 @@
+.membersSection {
+  padding: var(--spacing-2xl) 0;
+  background-color: var(--color-white);
+}
+
+.membersGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}
+
+.membersGrid > :nth-child(5) {
+  grid-column: 1 / span 1;
+}
+
+.membersGrid > :nth-child(6) {
+  grid-column: 2 / span 1;
+}
+
+.membersGrid > :nth-child(7) {
+  grid-column: 3 / span 1;
+}
+
+.memberCard {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+  text-align: center;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.memberCard.president {
+  border: 3px solid #FFD700;
+  background: linear-gradient(135deg, var(--color-white) 0%, #f8f9ff 100%);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+  position: relative;
+}
+
+.memberCard.president::before {
+  content: '👑';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 24px;
+  background: #FFD700;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.memberCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+
+.memberImageContainer {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto var(--spacing-md);
+  overflow: hidden;
+  background-color: var(--color-bg);
+  border-radius: 50%;
+  border: 3px solid var(--color-primary);
+}
+
+.president .memberImageContainer {
+  border-color: #FFD700;
+  border-width: 4px;
+}
+
+.memberImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.memberInfo {
+  text-align: center;
+  width: 100%;
+}
+
+.memberName {
+  font-size: var(--font-size-lg);
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+.president .memberName {
+  color: #B8860B;
+  font-weight: 700;
+  font-size: var(--font-size-xl);
+}
+
+.memberRole {
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-xs);
+  font-weight: 500;
+}
+
+.memberDate {
+  color: var(--color-text-light);
+  font-size: var(--font-size-xs);
+  font-style: italic;
+}
+
+@media (max-width: 968px) {
+  .membersGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .membersGrid > :nth-child(5),
+  .membersGrid > :nth-child(6),
+  .membersGrid > :nth-child(7) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .membersGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  .memberImageContainer {
+    width: 100px;
+    height: 100px;
+  }
+
+  .memberName {
+    font-size: var(--font-size-base);
+  }
+}
+

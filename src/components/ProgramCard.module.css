@@ -1,0 +1,47 @@
+.programCard {
+  width: 80%;
+  max-width: 900px;
+  background: #ffffff;
+  padding: 2.8rem;
+  border-radius: 20px;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.04);
+
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  position: relative;
+  overflow: hidden; 
+}
+
+.programCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 70, 40, 0.15);
+  border-color: var(--color-accent-light);
+}
+
+.programIcon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 1rem;
+
+  overflow: hidden;
+}
+
+.programTitle {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 700;
+}
+
+.programDescription {
+  color: var(--color-text-light);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+

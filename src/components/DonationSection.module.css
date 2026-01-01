@@ -1,0 +1,139 @@
+.donationSection {
+  padding: var(--spacing-3xl) 0;
+  background: var(--color-bg-gradient);
+  position: relative;
+  overflow: visible;
+}
+
+.donationCard {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 60px -12px rgba(0, 0, 0, 0.15), 0 8px 24px -4px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  border: 1px solid rgba(0, 70, 40, 0.08);
+  transition: all 0.3s ease;
+}
+
+.donationCard:hover {
+  box-shadow: 0 25px 70px -12px rgba(0, 0, 0, 0.2), 0 10px 30px -4px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.donationContent {
+  text-align: center;
+}
+
+.donationTitle {
+  font-family: var(--font-family-heading);
+  font-size: 2.5rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.donationText {
+  font-size: 1.125rem;
+  color: var(--color-text-light);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.donationForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.amountButtons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.amountBtn {
+  padding: 1rem;
+  border: 2px solid var(--color-bg-light);
+  background-color: var(--color-bg-light);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: var(--font-family-heading);
+}
+
+.amountBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.amountBtn.active { /* Assuming React adds this class */
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.customAmount {
+  margin-top: 0.5rem;
+}
+
+.amountInput {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--color-bg-light);
+  border-radius: var(--radius-md);
+  font-size: 1.25rem;
+  text-align: center;
+  transition: all var(--transition-base);
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.amountInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 70, 40, 0.1);
+}
+
+.donateButton {
+  padding: 1.25rem 2rem;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 70, 40, 0.25), 0 2px 8px rgba(0, 70, 40, 0.15);
+  transition: all var(--transition-base);
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.donateButton:hover {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  box-shadow: 0 12px 32px rgba(0, 70, 40, 0.35), 0 4px 12px rgba(0, 70, 40, 0.2);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 640px) {
+  .donationCard {
+    padding: 1.5rem;
+  }
+  
+  .amountButtons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .donationTitle {
+    font-size: 2rem;
+  }
+}

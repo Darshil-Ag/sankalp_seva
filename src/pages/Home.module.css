@@ -1,0 +1,55 @@
+.home {
+  overflow: visible;
+  min-height: 100vh;
+}
+
+/* Call to Action Section */
+.ctaSection {
+  padding: clamp(4rem, 8vw, 7rem) 1rem;
+  background: linear-gradient(135deg, var(--color-bg-light) 0%, var(--color-white) 50%, var(--color-bg-light) 100%);
+  text-align: center;
+  overflow: visible;
+}
+
+.ctaTitle {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  color: var(--color-primary-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ctaText {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  color: var(--color-text-light);
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.75;
+}
+
+.ctaActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Buttons inside CTA */
+.ctaActions :global(.btn) {
+  min-width: 180px;
+  padding: 0.75rem 1.75rem;
+  font-weight: 500;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .ctaActions {
+    flex-direction: column;
+  }
+
+  .ctaActions :global(.btn) {
+    width: 100%;
+    max-width: 320px;
+  }
+}
