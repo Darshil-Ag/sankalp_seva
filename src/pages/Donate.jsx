@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { useLanguage } from "../contexts/LanguageContext"
 import { translations } from "../translations"
@@ -6,6 +7,7 @@ import styles from "./Donate.module.css"
 
 const Donate = () => {
   const { language } = useLanguage()
+  const navigate = useNavigate()
   const t = translations[language].donate
   
   const causes = [
@@ -34,6 +36,10 @@ const Donate = () => {
   const [cause, setCause] = useState(causes[0])
   const [monthly, setMonthly] = useState(false)
   const [error, setError] = useState("")
+  const [donorName, setDonorName] = useState("")
+  const [donorEmail, setDonorEmail] = useState("")
+  const [donorPhone, setDonorPhone] = useState("")
+  const [isProcessing, setIsProcessing] = useState(false)
 
   const finalAmount = Number(customAmount || amount)
 
@@ -58,26 +64,240 @@ const Donate = () => {
     setCustomAmount(value)
   }
 
-  const handleDonate = () => {
+  const handleDonate = async () => {
+    // Validation
     if (finalAmount <= 0 || isNaN(finalAmount)) {
-      setError(t.errors.invalidAmount)
+      setError(t.errors?.invalidAmount || (language === 'en' ? 'Please enter a valid amount' : 'कृपया एक वैध राशि दर्ज करें'))
       return
     }
 
     if (finalAmount < 1) {
-      setError(t.errors.minDonation)
+      setError(t.errors?.minDonation || (language === 'en' ? 'Minimum donation is ₹1' : 'न्यूनतम दान ₹1 है'))
       return
     }
 
-    const typeText = monthly 
-      ? (language === 'en' ? "Monthly" : "मासिक")
-      : (language === 'en' ? "One-time" : "एक बार")
-    
-    const alertText = language === 'en'
-      ? `Donation Details:\n\nCause: ${cause}\nAmount: ₹${finalAmount}\nType: ${typeText}\n\n(Payment gateway will open here)`
-      : `दान विवरण:\n\nकारण: ${cause}\nराशि: ₹${finalAmount}\nप्रकार: ${typeText}\n\n(भुगतान गेटवे यहाँ खुलेगा)`
+    if (!donorName.trim()) {
+      setError(language === 'en' ? 'Please enter your name' : 'कृपया अपना नाम दर्ज करें')
+      return
+    }
 
-    alert(alertText)
+    if (!donorEmail.trim()) {
+      setError(language === 'en' ? 'Please enter your email' : 'कृपया अपना ईमेल दर्ज करें')
+      return
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(donorEmail)) {
+      setError(language === 'en' ? 'Please enter a valid email address' : 'कृपया एक वैध ईमेल पता दर्ज करें')
+      return
+    }
+
+    setError("")
+    setIsProcessing(true)
+
+    try {
+      // Convert amount to paise (multiply by 100)
+      const amountInPaise = Math.round(finalAmount * 100)
+      
+      // Get Razorpay Key ID from environment variable
+      const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID
+      if (!razorpayKeyId) {
+        throw new Error('Razorpay Key ID not configured. Please set VITE_RAZORPAY_KEY_ID in .env file')
+      }
+
+      // Backend API URLs
+      const BASE_API_URL = import.meta.env.VITE_API_URL?.replace('/api/verify-donation', '') || 'http://localhost:3001'
+      const CREATE_ORDER_URL = `${BASE_API_URL}/api/create-order`
+      const VERIFY_DONATION_URL = `${BASE_API_URL}/api/verify-donation`
+
+      // Step 1: Create Razorpay order
+      const orderResponse = await fetch(CREATE_ORDER_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: amountInPaise,
+          currency: 'INR'
+        })
+      })
+
+      const orderData = await orderResponse.json()
+
+      if (!orderData.success || !orderData.order) {
+        throw new Error(orderData.error || 'Failed to create payment order')
+      }
+
+      const orderId = orderData.order.id
+
+      // Step 2: Open Razorpay checkout with the order
+      const options = {
+        key: razorpayKeyId,
+        amount: amountInPaise,
+        currency: 'INR',
+        order_id: orderId, // Use the created order ID
+        name: 'Sankalp Sewa Sansthan',
+        description: `Donation for ${cause}`,
+        handler: async function (response) {
+          try {
+            // Check if response is an error object
+            if (response.error) {
+              console.error('Razorpay error:', response.error)
+              alert(language === 'en'
+                ? `Payment error: ${response.error.description || response.error.message || 'Unknown error'}`
+                : `भुगतान त्रुटि: ${response.error.description || response.error.message || 'अज्ञात त्रुटि'}`)
+              setIsProcessing(false)
+              return
+            }
+            
+            // Extract payment details from response
+            const paymentId = response.razorpay_payment_id
+            const orderId = response.razorpay_order_id
+            const signature = response.razorpay_signature
+            
+            // Validate required fields
+            if (!paymentId || !orderId || !signature) {
+              console.error('❌ Missing Razorpay response fields:', {
+                paymentId: paymentId || 'MISSING',
+                orderId: orderId || 'MISSING',
+                signature: signature ? 'PRESENT' : 'MISSING',
+                originalResponse: response,
+                actualResponse: actualResponse,
+                responseKeys: Object.keys(response),
+                actualResponseKeys: Object.keys(actualResponse)
+              })
+              
+              // Show detailed error to help debug
+              const errorDetails = `Response structure:\n${JSON.stringify(response, null, 2).substring(0, 500)}`
+              console.error('Full response structure:', errorDetails)
+              
+              alert(language === 'en'
+                ? `Payment completed but verification data is missing.\n\nPlease check browser console (F12) for details.\n\nIf payment was successful, contact support with payment ID: ${paymentId || 'N/A'}`
+                : `भुगतान पूर्ण हो गया लेकिन सत्यापन डेटा गायब है।\n\nकृपया ब्राउज़र कंसोल (F12) जांचें।\n\nयदि भुगतान सफल था, तो समर्थन से संपर्क करें: ${paymentId || 'N/A'}`)
+              setIsProcessing(false)
+              return
+            }
+            
+            // Validate donor information
+            const trimmedDonorName = donorName.trim()
+            const trimmedDonorEmail = donorEmail.trim()
+            
+            if (!trimmedDonorName || !trimmedDonorEmail) {
+              console.error('Missing donor information:', {
+                donorName: trimmedDonorName || 'MISSING',
+                donorEmail: trimmedDonorEmail || 'MISSING'
+              })
+              alert(language === 'en'
+                ? 'Donor information is missing. Please try again.'
+                : 'दानकर्ता की जानकारी गायब है। कृपया पुनः प्रयास करें।')
+              setIsProcessing(false)
+              return
+            }
+            
+            // Prepare request body
+            const requestBody = {
+              payment_id: paymentId,
+              order_id: orderId,
+              signature: signature,
+              amount: amountInPaise,
+              currency: 'INR',
+              donor_name: trimmedDonorName,
+              donor_email: trimmedDonorEmail,
+              donor_phone: donorPhone.trim() || null,
+            }
+            
+            console.log('Verifying donation with backend...')
+            
+            // Call backend to verify and record donation
+            const verifyResponse = await fetch(VERIFY_DONATION_URL, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(requestBody)
+            })
+
+            const data = await verifyResponse.json()
+
+            if (data.success && data.donation) {
+              // Payment verified successfully - redirect to success page with donation details
+              const successParams = new URLSearchParams({
+                payment_id: paymentId,
+                order_id: orderId,
+                donor_name: trimmedDonorName,
+                donor_email: trimmedDonorEmail,
+                amount: amountInPaise.toString(),
+                created_at: data.donation.created_at || new Date().toISOString()
+              })
+              
+              navigate(`/donation-success?${successParams.toString()}`)
+            } else {
+              // Verification failed - redirect to failure page
+              const failureParams = new URLSearchParams({
+                error: data.error || (language === 'en' ? 'Payment verification failed' : 'भुगतान सत्यापन विफल'),
+                payment_id: paymentId || ''
+              })
+              
+              navigate(`/donation-failed?${failureParams.toString()}`)
+            }
+          } catch (error) {
+            console.error('Error verifying donation:', error)
+            // Network or other errors - redirect to failure page
+            const failureParams = new URLSearchParams({
+              error: language === 'en' 
+                ? 'An error occurred while verifying your payment. Please contact support.'
+                : 'आपके भुगतान को सत्यापित करते समय एक त्रुटि हुई। कृपया समर्थन से संपर्क करें।',
+              payment_id: paymentId || ''
+            })
+            
+            navigate(`/donation-failed?${failureParams.toString()}`)
+          } finally {
+            setIsProcessing(false)
+          }
+        },
+        prefill: {
+          name: donorName.trim(),
+          email: donorEmail.trim(),
+          contact: donorPhone.trim() || undefined
+        },
+        theme: {
+          color: '#2E7D32' // Match your site's primary green color
+        },
+        modal: {
+          ondismiss: function() {
+            // User closed the payment modal
+            setIsProcessing(false)
+            console.log('Payment cancelled by user')
+          }
+        }
+      }
+
+      // Open Razorpay checkout
+      const razorpay = new window.Razorpay(options)
+      
+      // Handle payment failure
+      razorpay.on('payment.failed', function (response) {
+        setIsProcessing(false)
+        console.error('Payment failed:', response.error)
+        
+        // Redirect to failure page
+        const failureParams = new URLSearchParams({
+          error: response.error?.description || response.error?.message || (language === 'en' ? 'Payment failed' : 'भुगतान विफल'),
+          payment_id: response.error?.metadata?.payment_id || ''
+        })
+        
+        navigate(`/donation-failed?${failureParams.toString()}`)
+      })
+
+      razorpay.open()
+    } catch (error) {
+      console.error('Error in payment process:', error)
+      setError(language === 'en' 
+        ? error.message || 'Failed to initialize payment. Please try again.'
+        : error.message || 'भुगतान प्रारंभ करने में विफल। कृपया पुनः प्रयास करें।')
+      setIsProcessing(false)
+    }
   }
 
   const presetAmounts = [101, 501, 1000]
@@ -94,6 +314,48 @@ const Donate = () => {
         <p className={styles.subtitle}>
           {t.subtitle}
         </p>
+
+        {/* Donor Information */}
+        <div className={styles.section}>
+          <label className={styles.label}>{language === 'en' ? 'Your Name' : 'आपका नाम'} *</label>
+          <input
+            type="text"
+            placeholder={language === 'en' ? 'Enter your full name' : 'अपना पूरा नाम दर्ज करें'}
+            value={donorName}
+            onChange={(e) => {
+              setDonorName(e.target.value)
+              setError("")
+            }}
+            className={styles.input}
+            required
+          />
+        </div>
+
+        <div className={styles.section}>
+          <label className={styles.label}>{language === 'en' ? 'Your Email' : 'आपका ईमेल'} *</label>
+          <input
+            type="email"
+            placeholder={language === 'en' ? 'Enter your email address' : 'अपना ईमेल पता दर्ज करें'}
+            value={donorEmail}
+            onChange={(e) => {
+              setDonorEmail(e.target.value)
+              setError("")
+            }}
+            className={styles.input}
+            required
+          />
+        </div>
+
+        <div className={styles.section}>
+          <label className={styles.label}>{language === 'en' ? 'Your Phone (Optional)' : 'आपका फोन (वैकल्पिक)'}</label>
+          <input
+            type="tel"
+            placeholder={language === 'en' ? 'Enter your phone number' : 'अपना फोन नंबर दर्ज करें'}
+            value={donorPhone}
+            onChange={(e) => setDonorPhone(e.target.value)}
+            className={styles.input}
+          />
+        </div>
 
         {/* Cause */}
         <div className={styles.section}>
@@ -186,11 +448,14 @@ const Donate = () => {
         <motion.button
           className={styles.donateBtn}
           onClick={handleDonate}
-          disabled={finalAmount <= 0 || !!error}
-          whileHover={{ scale: finalAmount > 0 && !error ? 1.02 : 1 }}
-          whileTap={{ scale: finalAmount > 0 && !error ? 0.98 : 1 }}
+          disabled={finalAmount <= 0 || !!error || isProcessing || !donorName.trim() || !donorEmail.trim()}
+          whileHover={{ scale: finalAmount > 0 && !error && !isProcessing ? 1.02 : 1 }}
+          whileTap={{ scale: finalAmount > 0 && !error && !isProcessing ? 0.98 : 1 }}
         >
-          {t.donateBtn} ₹{finalAmount > 0 ? finalAmount : ""}
+          {isProcessing 
+            ? (language === 'en' ? 'Processing...' : 'प्रसंस्करण...')
+            : `${t.donateBtn} ₹${finalAmount > 0 ? finalAmount : ""}`
+          }
         </motion.button>
 
         <p className={styles.trust}>

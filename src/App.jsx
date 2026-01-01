@@ -14,6 +14,8 @@ import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
 import Legal from './pages/Legal'
 import Donate from "./pages/Donate"
+import DonationSuccess from "./pages/DonationSuccess"
+import DonationFailed from "./pages/DonationFailed"
 import GauShalaDetail from './pages/GauShalaDetail'
 import LadliGharDetail from './pages/LadliGharDetail'
 import EventDetail from './pages/EventDetail'
@@ -37,6 +39,8 @@ function AppContent() {
             <Route path="/about" element={<About />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/donate" element={<Donate />} />
+            <Route path="/donation-success" element={<DonationSuccess />} />
+            <Route path="/donation-failed" element={<DonationFailed />} />
             <Route path="/impact" element={<Impact />} />
             <Route path="/get-involved" element={<GetInvolved />} />
             <Route path="/gallery" element={<Gallery />} />
