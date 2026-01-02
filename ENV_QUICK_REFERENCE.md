@@ -57,3 +57,5 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 - **Key Secret** → Backend only! (only in `server/.env`)
 - **Service Role Key** → Backend only! (only in `server/.env`)
 
+
+

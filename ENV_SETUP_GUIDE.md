@@ -185,3 +185,5 @@ After setting up both `.env` files:
 - Check that `RAZORPAY_KEY_SECRET` in `server/.env` matches your Razorpay account
 - Verify both frontend and backend use the same Razorpay account (test/live mode)
 
+
+

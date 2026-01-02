@@ -159,3 +159,5 @@ const handleRazorpaySuccess = async (paymentResponse) => {
 - **Invalid signature**: Check that `RAZORPAY_KEY_SECRET` matches your Razorpay account
 - **Duplicate payment**: Payment ID already exists in database (idempotency)
 
+
+
