@@ -39,10 +39,10 @@ const Legal = () => {
                   <strong>Organization Type:</strong> Non-profit, Non-political, Non-religious Social Service Organization
                 </div>
                 <div className={styles.infoItem}>
-                  <strong>Registration Number:</strong> [Registration details placeholder]
+                  <strong>Registration Number:</strong> COOP/2025/AJMER/500226
                 </div>
                 <div className={styles.infoItem}>
-                  <strong>Registration Date:</strong> [Date placeholder]
+                  <strong>Registration Date:</strong> 17-02-2025
                 </div>
               </div>
             </div>
