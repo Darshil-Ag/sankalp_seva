@@ -81,6 +81,18 @@ const Donate = () => {
       return
     }
 
+    if (!donorEmail.trim()) {
+      setError(language === 'en' ? 'Please enter your email' : 'कृपया अपना ईमेल दर्ज करें')
+      return
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(donorEmail)) {
+      setError(language === 'en' ? 'Please enter a valid email address' : 'कृपया एक वैध ईमेल पता दर्ज करें')
+      return
+    }
+
     if (!donorPhone.trim()) {
       setError(language === 'en' ? 'Please enter your phone number' : 'कृपया अपना फोन नंबर दर्ज करें')
       return
@@ -211,11 +223,13 @@ const Donate = () => {
             
             // Validate donor information
             const trimmedDonorName = donorName.trim()
+            const trimmedDonorEmail = donorEmail.trim()
             const trimmedDonorPhone = donorPhone.trim()
             
-            if (!trimmedDonorName || !trimmedDonorPhone) {
+            if (!trimmedDonorName || !trimmedDonorEmail || !trimmedDonorPhone) {
               console.error('Missing donor information:', {
                 donorName: trimmedDonorName || 'MISSING',
+                donorEmail: trimmedDonorEmail || 'MISSING',
                 donorPhone: trimmedDonorPhone || 'MISSING'
               })
               alert(language === 'en'
@@ -233,7 +247,7 @@ const Donate = () => {
               amount: amountInPaise,
               currency: 'INR',
               donor_name: trimmedDonorName,
-              donor_email: donorEmail.trim() || null,
+              donor_email: trimmedDonorEmail,
               donor_phone: trimmedDonorPhone,
               cause: cause,
             }
@@ -319,7 +333,7 @@ const Donate = () => {
         },
         prefill: {
           name: donorName.trim(),
-          email: donorEmail.trim() || undefined,
+          email: donorEmail.trim(),
           contact: donorPhone.trim()
         },
         theme: {
@@ -393,6 +407,21 @@ const Donate = () => {
         </div>
 
         <div className={styles.section}>
+          <label className={styles.label}>{language === 'en' ? 'Your Email' : 'आपका ईमेल'} *</label>
+          <input
+            type="email"
+            placeholder={language === 'en' ? 'Enter your email address' : 'अपना ईमेल पता दर्ज करें'}
+            value={donorEmail}
+            onChange={(e) => {
+              setDonorEmail(e.target.value)
+              setError("")
+            }}
+            className={styles.input}
+            required
+          />
+        </div>
+
+        <div className={styles.section}>
           <label className={styles.label}>{language === 'en' ? 'Your Phone' : 'आपका फोन'} *</label>
           <input
             type="tel"
@@ -404,20 +433,6 @@ const Donate = () => {
             }}
             className={styles.input}
             required
-          />
-        </div>
-
-        <div className={styles.section}>
-          <label className={styles.label}>{language === 'en' ? 'Your Email (Optional)' : 'आपका ईमेल (वैकल्पिक)'}</label>
-          <input
-            type="email"
-            placeholder={language === 'en' ? 'Enter your email address' : 'अपना ईमेल पता दर्ज करें'}
-            value={donorEmail}
-            onChange={(e) => {
-              setDonorEmail(e.target.value)
-              setError("")
-            }}
-            className={styles.input}
           />
         </div>
 
@@ -512,7 +527,7 @@ const Donate = () => {
         <motion.button
           className={styles.donateBtn}
           onClick={handleDonate}
-          disabled={finalAmount <= 0 || !!error || isProcessing || !donorName.trim() || !donorPhone.trim()}
+          disabled={finalAmount <= 0 || !!error || isProcessing || !donorName.trim() || !donorEmail.trim() || !donorPhone.trim()}
           whileHover={{ scale: finalAmount > 0 && !error && !isProcessing ? 1.02 : 1 }}
           whileTap={{ scale: finalAmount > 0 && !error && !isProcessing ? 0.98 : 1 }}
         >

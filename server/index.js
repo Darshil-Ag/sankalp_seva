@@ -286,6 +286,7 @@ app.post('/api/verify-donation', async (req, res) => {
     if (!signature || signature.trim() === '') missingFields.push('signature');
     if (!amount || amount === 0) missingFields.push('amount');
     if (!donor_name || donor_name.trim() === '') missingFields.push('donor_name');
+    if (!donor_email || donor_email.trim() === '') missingFields.push('donor_email');
     if (!donor_phone || donor_phone.trim() === '') missingFields.push('donor_phone');
     if (!cause || cause.trim() === '') missingFields.push('cause');
 
@@ -334,7 +335,7 @@ app.post('/api/verify-donation', async (req, res) => {
       .from('donations')
       .insert({
         donor_name: donor_name.trim(),
-        donor_email: donor_email?.trim() || null,
+        donor_email: donor_email.trim(),
         donor_phone: donor_phone.trim(),
         amount: parseInt(amount),
         currency: currency || 'INR',
