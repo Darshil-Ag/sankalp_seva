@@ -81,15 +81,15 @@ const Donate = () => {
       return
     }
 
-    if (!donorEmail.trim()) {
-      setError(language === 'en' ? 'Please enter your email' : 'कृपया अपना ईमेल दर्ज करें')
+    if (!donorPhone.trim()) {
+      setError(language === 'en' ? 'Please enter your phone number' : 'कृपया अपना फोन नंबर दर्ज करें')
       return
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(donorEmail)) {
-      setError(language === 'en' ? 'Please enter a valid email address' : 'कृपया एक वैध ईमेल पता दर्ज करें')
+    // Basic phone validation (10 digits minimum)
+    const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/
+    if (!phoneRegex.test(donorPhone.replace(/\s/g, ''))) {
+      setError(language === 'en' ? 'Please enter a valid phone number' : 'कृपया एक वैध फोन नंबर दर्ज करें')
       return
     }
 
@@ -122,6 +122,36 @@ const Donate = () => {
           currency: 'INR'
         })
       })
+
+      // Check if response is OK
+      if (!orderResponse.ok) {
+        const errorText = await orderResponse.text()
+        console.error('Order creation failed:', {
+          status: orderResponse.status,
+          statusText: orderResponse.statusText,
+          response: errorText.substring(0, 200)
+        })
+        throw new Error(
+          language === 'en'
+            ? `Server error (${orderResponse.status}). Please check if the backend server is running.`
+            : `सर्वर त्रुटि (${orderResponse.status})। कृपया जांचें कि बैकएंड सर्वर चल रहा है।`
+        )
+      }
+
+      // Check content type
+      const contentType = orderResponse.headers.get('content-type')
+      if (!contentType || !contentType.includes('application/json')) {
+        const errorText = await orderResponse.text()
+        console.error('Invalid response type:', {
+          contentType,
+          response: errorText.substring(0, 200)
+        })
+        throw new Error(
+          language === 'en'
+            ? 'Server returned invalid response. Please check if the backend server is running and accessible.'
+            : 'सर्वर ने अमान्य प्रतिक्रिया दी। कृपया जांचें कि बैकएंड सर्वर चल रहा है और सुलभ है।'
+        )
+      }
 
       const orderData = await orderResponse.json()
 
@@ -181,12 +211,12 @@ const Donate = () => {
             
             // Validate donor information
             const trimmedDonorName = donorName.trim()
-            const trimmedDonorEmail = donorEmail.trim()
+            const trimmedDonorPhone = donorPhone.trim()
             
-            if (!trimmedDonorName || !trimmedDonorEmail) {
+            if (!trimmedDonorName || !trimmedDonorPhone) {
               console.error('Missing donor information:', {
                 donorName: trimmedDonorName || 'MISSING',
-                donorEmail: trimmedDonorEmail || 'MISSING'
+                donorPhone: trimmedDonorPhone || 'MISSING'
               })
               alert(language === 'en'
                 ? 'Donor information is missing. Please try again.'
@@ -203,8 +233,9 @@ const Donate = () => {
               amount: amountInPaise,
               currency: 'INR',
               donor_name: trimmedDonorName,
-              donor_email: trimmedDonorEmail,
-              donor_phone: donorPhone.trim() || null,
+              donor_email: donorEmail.trim() || null,
+              donor_phone: trimmedDonorPhone,
+              cause: cause,
             }
             
             console.log('Verifying donation with backend...')
@@ -217,6 +248,36 @@ const Donate = () => {
               },
               body: JSON.stringify(requestBody)
             })
+
+            // Check if response is OK
+            if (!verifyResponse.ok) {
+              const errorText = await verifyResponse.text()
+              console.error('Verification failed:', {
+                status: verifyResponse.status,
+                statusText: verifyResponse.statusText,
+                response: errorText.substring(0, 200)
+              })
+              throw new Error(
+                language === 'en'
+                  ? `Verification failed (${verifyResponse.status}). Please contact support.`
+                  : `सत्यापन विफल (${verifyResponse.status})। कृपया समर्थन से संपर्क करें।`
+              )
+            }
+
+            // Check content type
+            const contentType = verifyResponse.headers.get('content-type')
+            if (!contentType || !contentType.includes('application/json')) {
+              const errorText = await verifyResponse.text()
+              console.error('Invalid response type:', {
+                contentType,
+                response: errorText.substring(0, 200)
+              })
+              throw new Error(
+                language === 'en'
+                  ? 'Server returned invalid response. Please contact support.'
+                  : 'सर्वर ने अमान्य प्रतिक्रिया दी। कृपया समर्थन से संपर्क करें।'
+              )
+            }
 
             const data = await verifyResponse.json()
 
@@ -258,8 +319,8 @@ const Donate = () => {
         },
         prefill: {
           name: donorName.trim(),
-          email: donorEmail.trim(),
-          contact: donorPhone.trim() || undefined
+          email: donorEmail.trim() || undefined,
+          contact: donorPhone.trim()
         },
         theme: {
           color: '#2E7D32' // Match your site's primary green color
@@ -332,13 +393,13 @@ const Donate = () => {
         </div>
 
         <div className={styles.section}>
-          <label className={styles.label}>{language === 'en' ? 'Your Email' : 'आपका ईमेल'} *</label>
+          <label className={styles.label}>{language === 'en' ? 'Your Phone' : 'आपका फोन'} *</label>
           <input
-            type="email"
-            placeholder={language === 'en' ? 'Enter your email address' : 'अपना ईमेल पता दर्ज करें'}
-            value={donorEmail}
+            type="tel"
+            placeholder={language === 'en' ? 'Enter your phone number' : 'अपना फोन नंबर दर्ज करें'}
+            value={donorPhone}
             onChange={(e) => {
-              setDonorEmail(e.target.value)
+              setDonorPhone(e.target.value)
               setError("")
             }}
             className={styles.input}
@@ -347,12 +408,15 @@ const Donate = () => {
         </div>
 
         <div className={styles.section}>
-          <label className={styles.label}>{language === 'en' ? 'Your Phone (Optional)' : 'आपका फोन (वैकल्पिक)'}</label>
+          <label className={styles.label}>{language === 'en' ? 'Your Email (Optional)' : 'आपका ईमेल (वैकल्पिक)'}</label>
           <input
-            type="tel"
-            placeholder={language === 'en' ? 'Enter your phone number' : 'अपना फोन नंबर दर्ज करें'}
-            value={donorPhone}
-            onChange={(e) => setDonorPhone(e.target.value)}
+            type="email"
+            placeholder={language === 'en' ? 'Enter your email address' : 'अपना ईमेल पता दर्ज करें'}
+            value={donorEmail}
+            onChange={(e) => {
+              setDonorEmail(e.target.value)
+              setError("")
+            }}
             className={styles.input}
           />
         </div>
@@ -448,7 +512,7 @@ const Donate = () => {
         <motion.button
           className={styles.donateBtn}
           onClick={handleDonate}
-          disabled={finalAmount <= 0 || !!error || isProcessing || !donorName.trim() || !donorEmail.trim()}
+          disabled={finalAmount <= 0 || !!error || isProcessing || !donorName.trim() || !donorPhone.trim()}
           whileHover={{ scale: finalAmount > 0 && !error && !isProcessing ? 1.02 : 1 }}
           whileTap={{ scale: finalAmount > 0 && !error && !isProcessing ? 0.98 : 1 }}
         >

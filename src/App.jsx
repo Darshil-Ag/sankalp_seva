@@ -19,6 +19,7 @@ import DonationFailed from "./pages/DonationFailed"
 import GauShalaDetail from './pages/GauShalaDetail'
 import LadliGharDetail from './pages/LadliGharDetail'
 import EventDetail from './pages/EventDetail'
+import AdminPanel from './pages/AdminPanel'
 
 function AppContent() {
   const location = useLocation()
@@ -49,6 +50,7 @@ function AppContent() {
             <Route path="/initiatives/gau-shala" element={<GauShalaDetail />} />
             <Route path="/initiatives/ladli-ghar" element={<LadliGharDetail />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </motion.main>
       </AnimatePresence>
