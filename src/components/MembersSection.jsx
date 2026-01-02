@@ -15,50 +15,43 @@ const MembersSection = () => {
       id: 1,
       src: '/members/megha agarwal.jpeg',
       name: 'Megha Agarwal',
-      position: language === 'en' ? 'President' : 'अध्यक्ष',
-      date: language === 'en' ? '19 September 1985' : '19 सितंबर 1985'
+      position: language === 'en' ? 'President' : 'अध्यक्ष'
     },
     {
       id: 2,
       src: '/members/anita chaparwal.jpeg',
       name: 'Anita Chhaparwal',
-      position: language === 'en' ? 'Vice President' : 'उपाध्यक्ष',
-      date: language === 'en' ? '28 October 1968' : '28 अक्टूबर 1968'
+      position: language === 'en' ? 'Vice President' : 'उपाध्यक्ष'
     },
     {
       id: 3,
       src: '/members/anju agarwal.jpeg',
       name: 'Anju Agarwal',
-      position: language === 'en' ? 'Secretary' : 'सचिव',
-      date: language === 'en' ? '01 January 1972' : '01 जनवरी 1972'
+      position: language === 'en' ? 'Secretary' : 'सचिव'
     },
     {
       id: 4,
       src: '/members/santosh agarwal.jpeg',
       name: 'Santosh Agarwal',
-      position: language === 'en' ? 'Joint Secretary' : 'सहसचिव',
-      date: language === 'en' ? '01 January 1975' : '01 जनवरी 1975'
+      position: language === 'en' ? 'Joint Secretary' : 'सहसचिव'
     },
     {
       id: 5,
       src: '/members/sunita khandelwal.jpeg',
       name: 'Sunita Khandelwal',
-      position: language === 'en' ? 'Treasurer' : 'कोषाध्यक्ष',
-      date: language === 'en' ? '01 January 1972' : '01 जनवरी 1972'
+      position: language === 'en' ? 'Treasurer' : 'कोषाध्यक्ष'
     },
     {
       id: 6,
       src: '/members/ranjana bangar.jpeg',
       name: 'Ranjana Bangar',
-      position: language === 'en' ? 'Member' : 'सदस्य',
-      date: language === 'en' ? '01 December 1983' : '01 दिसंबर 1983'
+      position: language === 'en' ? 'Member' : 'सदस्य'
     },
     {
       id: 7,
       src: '/members/vinita agarwal.jpeg',
       name: 'Vinita Agarwal',
-      position: language === 'en' ? 'Member' : 'सदस्य',
-      date: language === 'en' ? '29 March 1983' : '29 मार्च 1983'
+      position: language === 'en' ? 'Member' : 'सदस्य'
     }
   ]
 
@@ -136,7 +129,6 @@ const MembersSection = () => {
               <div className={styles.memberInfo}>
                 <h3 className={styles.memberName}>{member.name}</h3>
                 <p className={styles.memberRole}>{member.position}</p>
-                <p className={styles.memberDate}>{language === 'en' ? 'Born:' : 'जन्म:'} {member.date}</p>
               </div>
             </motion.div>
           ))}
