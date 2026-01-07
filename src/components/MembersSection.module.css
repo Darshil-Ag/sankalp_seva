@@ -58,6 +58,19 @@
   z-index: 1;
 }
 
+.memberCard.clickable {
+  cursor: pointer;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .memberCard:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-5px);
@@ -72,6 +85,29 @@
   background-color: var(--color-bg);
   border-radius: 50%;
   border: 3px solid var(--color-primary);
+}
+
+.viewProfileBadge {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: var(--color-white);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.memberCard.clickable:hover .viewProfileBadge {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
 }
 
 .president .memberImageContainer {

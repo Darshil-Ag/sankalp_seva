@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext'
 import { translations } from '../translations'
 import styles from './MembersSection.module.css'
@@ -112,32 +113,44 @@ const MembersSection = () => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {members.map((member) => (
-            <motion.div 
-              key={member.id} 
-              className={`${styles.memberCard} ${member.id === 1 ? styles.president : ''}`}
-              variants={memberVariants}
-              whileHover={{ 
-                y: -10, 
-                scale: 1.05,
-                transition: { duration: 0.3 }
-              }}
-            >
-              <div className={styles.memberImageContainer}>
-                <motion.img
-                  src={member.src}
-                  alt={member.name}
-                  className={styles.memberImage}
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </div>
-              <div className={styles.memberInfo}>
-                <h3 className={styles.memberName}>{member.name}</h3>
-                <p className={styles.memberRole}>{member.position}</p>
-              </div>
-            </motion.div>
-          ))}
+          {members.map((member) => {
+            const CardWrapper = member.id === 1 ? Link : 'div'
+            const cardProps = member.id === 1 ? { to: '/megha-agarwal' } : {}
+            
+            return (
+              <motion.div 
+                key={member.id} 
+                className={`${styles.memberCard} ${member.id === 1 ? styles.president : ''} ${member.id === 1 ? styles.clickable : ''}`}
+                variants={memberVariants}
+                whileHover={{ 
+                  y: -10, 
+                  scale: 1.05,
+                  transition: { duration: 0.3 }
+                }}
+              >
+                <CardWrapper {...cardProps} className={member.id === 1 ? styles.cardLink : undefined}>
+                  <div className={styles.memberImageContainer}>
+                    <motion.img
+                      src={member.src}
+                      alt={member.name}
+                      className={styles.memberImage}
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    {member.id === 1 && (
+                      <div className={styles.viewProfileBadge}>
+                        {language === 'en' ? 'View Profile' : 'प्रोफ़ाइल देखें'}
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles.memberInfo}>
+                    <h3 className={styles.memberName}>{member.name}</h3>
+                    <p className={styles.memberRole}>{member.position}</p>
+                  </div>
+                </CardWrapper>
+              </motion.div>
+            )
+          })}
         </motion.div>
       </div>
     </section>

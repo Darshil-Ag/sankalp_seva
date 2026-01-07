@@ -20,6 +20,7 @@ import GauShalaDetail from './pages/GauShalaDetail'
 import LadliGharDetail from './pages/LadliGharDetail'
 import EventDetail from './pages/EventDetail'
 import AdminPanel from './pages/AdminPanel'
+import MeghaAgarwalProfile from './pages/MeghaAgarwalProfile'
 
 function AppContent() {
   const location = useLocation()
@@ -51,6 +52,7 @@ function AppContent() {
             <Route path="/initiatives/ladli-ghar" element={<LadliGharDetail />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/megha-agarwal" element={<MeghaAgarwalProfile />} />
           </Routes>
         </motion.main>
       </AnimatePresence>
