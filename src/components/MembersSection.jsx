@@ -52,6 +52,12 @@ const MembersSection = () => {
       src: '/members/vinita agarwal.jpeg',
       name: 'Vinita Agarwal',
       position: language === 'en' ? 'Member' : 'सदस्य'
+    },
+    {
+      id: 8,
+      src: '/members/komal kabra.jpg',
+      name: 'Komal Kabra',
+      position: language === 'en' ? 'Member' : 'सदस्य'
     }
   ]
 

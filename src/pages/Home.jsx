@@ -8,6 +8,7 @@ import DonationSection from '../components/DonationSection'
 import FocusAreas from '../components/FocusAreas'
 import TrustIndicators from '../components/TrustIndicators'
 import MembersSection from '../components/MembersSection'
+import CowFeedingVideos from '../components/CowFeedingVideos'
 import Chatbot from '../components/Chatbot'
 import styles from './Home.module.css'
 
@@ -26,6 +27,7 @@ const Home = () => {
       <HeroSection />
       <TrustIndicators />
       <MembersSection />
+      <CowFeedingVideos />
       <FocusAreas />
       <DonationSection />
       <Chatbot />
