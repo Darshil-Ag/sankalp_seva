@@ -78,7 +78,23 @@ const Chatbot = () => {
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         aria-label={isOpen ? "Close chatbot" : "Open chatbot"}
       >
-        {isOpen ? '×' : '💬'}
+        {isOpen ? '×' : (
+          <motion.img 
+            src="/sankalp_logo.jpg" 
+            alt="Chatbot" 
+            className={styles.chatbotButtonIcon}
+            animate={{
+              scale: [1, 1.1, 1],
+              rotate: [0, 5, -5, 0]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatDelay: 1,
+              ease: "easeInOut"
+            }}
+          />
+        )}
       </motion.button>
 
       {/* Chatbot Window */}
@@ -94,7 +110,23 @@ const Chatbot = () => {
             {/* Header */}
             <div className={styles.chatbotHeader}>
               <div className={styles.chatbotHeaderContent}>
-                <div className={styles.chatbotIcon}>💬</div>
+                <div className={styles.chatbotIcon}>
+                  <motion.img 
+                    src="/sankalp_logo.jpg" 
+                    alt="Sankalp Logo" 
+                    className={styles.chatbotIconImage}
+                    animate={{
+                      scale: [1, 1.08, 1],
+                      rotate: [0, 3, -3, 0]
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      repeatDelay: 1.5,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </div>
                 <div>
                   <div className={styles.chatbotTitle}>{t.needHelp}</div>
                   <div className={styles.chatbotSubtitle}>{t.askAnything}</div>

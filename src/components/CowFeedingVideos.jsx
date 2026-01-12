@@ -13,17 +13,38 @@ const CowFeedingVideos = () => {
     {
       id: 1,
       src: '/gao/1.mp4',
-      title: language === 'en' ? 'Gau Sewa - Cow Feeding Session 1' : 'गौ सेवा - गायों को खिलाना सत्र 1'
+      title: language === 'en' ? 'Gau Sewa - Cow Feeding Session 1' : 'गौ सेवा - गायों को खिलाना सत्र 1',
+      description: language === 'en' ? 'Weekly Gau Sewa session' : 'साप्ताहिक गौ सेवा सत्र'
     },
     {
       id: 2,
       src: '/gao/2.mp4',
-      title: language === 'en' ? 'Gau Sewa - Cow Feeding Session 2' : 'गौ सेवा - गायों को खिलाना सत्र 2'
+      title: language === 'en' ? 'Gau Sewa - Cow Feeding Session 2' : 'गौ सेवा - गायों को खिलाना सत्र 2',
+      description: language === 'en' ? 'Weekly Gau Sewa session' : 'साप्ताहिक गौ सेवा सत्र'
     },
     {
       id: 3,
       src: '/gao/3.mp4',
-      title: language === 'en' ? 'Gau Sewa - Cow Feeding Session 3' : 'गौ सेवा - गायों को खिलाना सत्र 3'
+      title: language === 'en' ? 'Gau Sewa - Cow Feeding Session 3' : 'गौ सेवा - गायों को खिलाना सत्र 3',
+      description: language === 'en' ? 'Weekly Gau Sewa session' : 'साप्ताहिक गौ सेवा सत्र'
+    },
+    {
+      id: 4,
+      src: '/pathvideos/11.mp4',
+      title: language === 'en' ? 'Community Engagement Initiative' : 'समुदाय जुड़ाव पहल',
+      description: language === 'en' ? 'Social Outreach Program' : 'सामाजिक आउटरीच कार्यक्रम'
+    },
+    {
+      id: 5,
+      src: '/pathvideos/22.mp4',
+      title: language === 'en' ? 'Community Engagement Initiative' : 'समुदाय जुड़ाव पहल',
+      description: language === 'en' ? 'Social Outreach Program' : 'सामाजिक आउटरीच कार्यक्रम'
+    },
+    {
+      id: 6,
+      src: '/pathvideos/33.mp4',
+      title: language === 'en' ? 'Community Engagement Initiative' : 'समुदाय जुड़ाव पहल',
+      description: language === 'en' ? 'Social Outreach Program' : 'सामाजिक आउटरीच कार्यक्रम'
     }
   ]
 
@@ -121,10 +142,7 @@ const CowFeedingVideos = () => {
               <div className={styles.videoInfo}>
                 <h3 className={styles.videoTitle}>{video.title}</h3>
                 <p className={styles.videoDescription}>
-                  {language === 'en' 
-                    ? 'Weekly Gau Sewa session'
-                    : 'साप्ताहिक गौ सेवा सत्र'
-                  }
+                  {video.description}
                 </p>
               </div>
             </motion.div>
@@ -158,4 +176,8 @@ const CowFeedingVideos = () => {
 }
 
 export default CowFeedingVideos
+
+
+
+
 

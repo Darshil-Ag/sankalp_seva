@@ -108,3 +108,7 @@ If images work locally but not on production:
 - Verify base path configuration
 - Check browser console for 404 errors
 
+
+
+
+
