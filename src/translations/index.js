@@ -55,6 +55,19 @@ export const translations = {
       registered: 'Registered NGO',
       legal: 'Legal & accountable'
     },
+    // Winter Cloth Distribution
+    winterCloth: {
+      sectionTitle: 'Winter Cloth Distribution',
+      sectionSubtitle: 'We distributed warm sweaters and nutritious food to school children, ensuring their comfort and well-being during the winter season. This initiative supports children\'s education by providing essential items that help them stay warm and healthy while attending school.',
+      image1Title: 'Sweater Distribution',
+      image1Description: 'Distributing warm sweaters to school children',
+      image2Title: 'Food Distribution',
+      image2Description: 'Providing nutritious food to support children\'s health',
+      image3Title: 'Community Support',
+      image3Description: 'Ensuring children stay warm and healthy during winter',
+      ctaText: 'Support our winter distribution initiatives and help us provide warmth and nutrition to children in need',
+      ctaButton: 'Donate Now'
+    },
     // Donate Page
     donate: {
       title: 'Support Our Work ❤️',
@@ -305,7 +318,9 @@ export const translations = {
         volunteerWork: 'Volunteer activities',
         programEvent: 'Program event',
         communityEngagement: 'Community engagement',
-        socialService: 'Social service activity'
+        socialService: 'Social service activity',
+        communityMember: 'Community member',
+        communityActivity: 'Community activity'
       }
     },
     // Impact Page
@@ -430,6 +445,19 @@ export const translations = {
       transparent: 'पारदर्शी और प्रभाव-संचालित',
       registered: 'पंजीकृत एनजीओ',
       legal: 'कानूनी और जवाबदेह'
+    },
+    // Winter Cloth Distribution
+    winterCloth: {
+      sectionTitle: 'सर्दियों के कपड़े वितरण',
+      sectionSubtitle: 'हमने स्कूली बच्चों को गर्म स्वेटर और पौष्टिक भोजन वितरित किया, सर्दियों के मौसम के दौरान उनकी सुविधा और कल्याण सुनिश्चित किया। यह पहल बच्चों की शिक्षा का समर्थन करती है जो उन्हें स्कूल में भाग लेने के दौरान गर्म और स्वस्थ रहने में मदद करने वाली आवश्यक वस्तुएं प्रदान करती है।',
+      image1Title: 'स्वेटर वितरण',
+      image1Description: 'स्कूली बच्चों को गर्म स्वेटर वितरित करना',
+      image2Title: 'भोजन वितरण',
+      image2Description: 'बच्चों के स्वास्थ्य का समर्थन करने के लिए पौष्टिक भोजन प्रदान करना',
+      image3Title: 'समुदाय सहायता',
+      image3Description: 'सर्दियों के दौरान बच्चों को गर्म और स्वस्थ रखना सुनिश्चित करना',
+      ctaText: 'हमारी सर्दियों के वितरण पहल का समर्थन करें और जरूरतमंद बच्चों को गर्मी और पोषण प्रदान करने में हमारी मदद करें',
+      ctaButton: 'अभी दान करें'
     },
     // Donate Page
     donate: {
@@ -674,7 +702,9 @@ export const translations = {
         volunteerWork: 'स्वयंसेवक गतिविधियां',
         programEvent: 'कार्यक्रम कार्यक्रम',
         communityEngagement: 'सामुदायिक जुड़ाव',
-        socialService: 'सामाजिक सेवा गतिविधि'
+        socialService: 'सामाजिक सेवा गतिविधि',
+        communityMember: 'सामुदायिक सदस्य',
+        communityActivity: 'सामुदायिक गतिविधि'
       }
     },
     // Impact Page

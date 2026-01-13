@@ -58,6 +58,12 @@ const Programs = () => {
       date: 'September 2024',
       title: 'Tree Plantation Drive',
       description: 'Planted 5000 saplings across 10 villages to promote environmental conservation and green cover.'
+    },
+    {
+      id: 'school-sweater-food-distribution',
+      date: '2024',
+      title: 'School Sweater and Food Distribution',
+      description: 'Distributed warm sweaters and nutritious food to school children, ensuring their comfort and well-being during the winter season. This initiative supports children\'s education by providing essential items that help them stay warm and healthy while attending school.'
     }
   ]
 

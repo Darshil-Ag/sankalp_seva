@@ -99,7 +99,7 @@ const EventDetailModal = ({ event, onClose }) => {
             <div className={styles.gallerySection}>
               <div className={styles.galleryGrid}>
                 {(event.id === 'gau-shala' 
-                  ? ['/photo_1/IMG-20251227-WA0026.jpg', '/photo_1/IMG-20251227-WA0027.jpg', '/photo_1/IMG-20251227-WA0028.jpg']
+                  ? ['/photo_1/IMG-20251227-WA0026.jpg', '/photo_1/IMG-20251227-WA0029.jpg', '/photo_1/IMG-20251227-WA0030.jpg']
                   : ['/photo_1/IMG-20251227-WA0032.jpg', '/photo_1/IMG-20251227-WA0033.jpg', '/photo_1/IMG-20251227-WA0034.jpg']
                 ).map((image, index) => (
                   <div key={index} className={styles.galleryItem}>

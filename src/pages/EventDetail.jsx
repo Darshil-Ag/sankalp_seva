@@ -39,9 +39,9 @@ const getEventData = () => {
       ],
       galleryImages: [
         '/photo_1/IMG-20251227-WA0026.jpg',
-        '/photo_1/IMG-20251227-WA0027.jpg',
-        '/photo_1/IMG-20251227-WA0028.jpg',
-        '/photo_1/IMG-20251227-WA0029.jpg'
+        '/photo_1/IMG-20251227-WA0029.jpg',
+        '/photo_1/IMG-20251227-WA0030.jpg',
+        '/photo_1/IMG-20251227-WA0031.jpg'
       ]
     },
     'mega-health-camp': {
@@ -136,7 +136,7 @@ const getEventData = () => {
         '/photo_1/IMG-20251227-WA0046.jpg',
         '/photo_1/IMG-20251227-WA0047.jpg',
         '/photo_1/IMG-20251227-WA0048.jpg',
-        '/photo_1/IMG-20251227-WA0056.jpg'
+        '/photo_1/IMG-20251227-WA0057.jpg'
       ]
     }
   }

@@ -11,11 +11,11 @@ const GauShalaDetail = () => {
   // Placeholder images - replace with actual images when available
   const galleryImages = [
     '/photo_1/IMG-20251227-WA0026.jpg',
-    '/photo_1/IMG-20251227-WA0027.jpg',
-    '/photo_1/IMG-20251227-WA0028.jpg',
     '/photo_1/IMG-20251227-WA0029.jpg',
     '/photo_1/IMG-20251227-WA0030.jpg',
-    '/photo_1/IMG-20251227-WA0031.jpg'
+    '/photo_1/IMG-20251227-WA0031.jpg',
+    '/photo_1/IMG-20251227-WA0032.jpg',
+    '/photo_1/IMG-20251227-WA0033.jpg'
   ]
 
   const impactPoints = [

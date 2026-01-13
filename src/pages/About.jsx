@@ -14,9 +14,9 @@ const About = () => {
 
   const galleryImages = [
     "/photo_1/IMG-20251227-WA0026.jpg",
-    "/photo_1/IMG-20251227-WA0027.jpg",
-    "/photo_1/IMG-20251227-WA0028.jpg",
-    "/photo_1/IMG-20251227-WA0029.jpg"
+    "/photo_1/IMG-20251227-WA0029.jpg",
+    "/photo_1/IMG-20251227-WA0030.jpg",
+    "/photo_1/IMG-20251227-WA0031.jpg"
   ]
 
   const fadeInUp = {

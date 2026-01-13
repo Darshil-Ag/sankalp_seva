@@ -48,7 +48,7 @@ const HeroSection = () => {
   const cards = [
     {
       id: 2,
-      image: "/photo_1/IMG-20251227-WA0028.jpg",
+      image: "/photo_1/IMG-20251227-WA0029.jpg",
       title: t.joinUs,
       description: t.cardJoinUs,
       buttonText: t.cardJoinVolunteer,
@@ -57,7 +57,7 @@ const HeroSection = () => {
     },
     {
       id: 1,
-      image: "/photo_1/IMG-20251227-WA0027.jpg",
+      image: "/photo_1/IMG-20251227-WA0030.jpg",
       title: t.donateNow,
       description: t.cardDonateNow,
       buttonText: t.donateNow,
@@ -66,7 +66,7 @@ const HeroSection = () => {
     },
     {
       id: 3,
-      image: "/photo_1/IMG-20251227-WA0029.jpg",
+      image: "/photo_1/IMG-20251227-WA0031.jpg",
       title: t.learnMore,
       description: t.cardLearnMore,
       buttonText: t.cardOurPrograms,

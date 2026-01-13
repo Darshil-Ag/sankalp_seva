@@ -20,9 +20,9 @@ const Gallery = () => {
   // Real images from photo folders
   const galleryImages = [
     { id: 1, src: '/photo_1/IMG-20251227-WA0026.jpg', alt: 'Community event', caption: t.imageCaptions.communityEvent },
-    { id: 2, src: '/photo_1/IMG-20251227-WA0027.jpg', alt: 'Education program', caption: t.imageCaptions.educationProgram },
-    { id: 3, src: '/photo_1/IMG-20251227-WA0028.jpg', alt: 'Medical camp', caption: t.imageCaptions.medicalCamp },
-    { id: 4, src: '/photo_1/IMG-20251227-WA0029.jpg', alt: 'Skill development', caption: t.imageCaptions.skillDevelopment },
+    { id: 2, src: '/photo_1/IMG-20251227-WA0029.jpg', alt: 'Education program', caption: t.imageCaptions.educationProgram },
+    { id: 3, src: '/photo_1/IMG-20251227-WA0030.jpg', alt: 'Medical camp', caption: t.imageCaptions.medicalCamp },
+    { id: 4, src: '/photo_1/IMG-20251227-WA0031.jpg', alt: 'Skill development', caption: t.imageCaptions.skillDevelopment },
     { id: 5, src: '/photo_1/IMG-20251227-WA0030.jpg', alt: 'Environmental awareness', caption: t.imageCaptions.environmentalAwareness },
     { id: 6, src: '/photo_1/IMG-20251227-WA0031.jpg', alt: 'Women empowerment', caption: t.imageCaptions.womenEmpowerment },
     { id: 7, src: '/photo_1/IMG-20251227-WA0032.jpg', alt: 'Senior citizen care', caption: t.imageCaptions.seniorCitizenCare },
@@ -33,7 +33,9 @@ const Gallery = () => {
     { id: 12, src: '/photo_1/IMG-20251227-WA0037.jpg', alt: 'Volunteer work', caption: t.imageCaptions.volunteerWork },
     { id: 13, src: '/photo_2/WhatsApp Image 2025-12-27 at 14.25.48_e58897ce.jpg', alt: 'Program event', caption: t.imageCaptions.programEvent },
     { id: 14, src: '/photo_2/WhatsApp Image 2025-12-27 at 14.25.49_21dd1f81.jpg', alt: 'Community engagement', caption: t.imageCaptions.communityEngagement },
-    { id: 15, src: '/photo_2/WhatsApp Image 2025-12-27 at 14.25.49_b8755a14.jpg', alt: 'Social service', caption: t.imageCaptions.socialService }
+    { id: 15, src: '/photo_2/WhatsApp Image 2025-12-27 at 14.25.49_b8755a14.jpg', alt: 'Social service', caption: t.imageCaptions.socialService },
+    { id: 16, src: '/replace anisha.jpg', alt: 'Community member', caption: t.imageCaptions.communityMember },
+    { id: 17, src: '/g1.jpg', alt: 'Community activity', caption: t.imageCaptions.communityActivity }
   ]
 
   const containerVariants = {
