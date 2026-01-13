@@ -8,6 +8,15 @@ const Footer = () => {
   const { language } = useLanguage()
   const t = translations[language].footer
 
+  const handleLinkClick = () => {
+    // Scroll to top when navigating
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    })
+  }
+
   return (
     <footer className={styles.footer} role="contentinfo">
       <div className={styles.container}>
@@ -25,10 +34,10 @@ const Footer = () => {
           <div className={styles.footerSection}>
             <h4 className={styles.footerHeading}>{t.quickLinks}</h4>
             <ul className={styles.footerLinks}>
-              <li><Link to="/about">{t.aboutUs}</Link></li>
-              <li><Link to="/programs">{t.ourPrograms}</Link></li>
-              <li><Link to="/impact">{t.ourImpact}</Link></li>
-              <li><Link to="/get-involved">{t.getInvolved}</Link></li>
+              <li><Link to="/about" onClick={handleLinkClick}>{t.aboutUs}</Link></li>
+              <li><Link to="/programs" onClick={handleLinkClick}>{t.ourPrograms}</Link></li>
+              <li><Link to="/impact" onClick={handleLinkClick}>{t.ourImpact}</Link></li>
+              <li><Link to="/get-involved" onClick={handleLinkClick}>{t.getInvolved}</Link></li>
             </ul>
           </div>
 
@@ -44,8 +53,8 @@ const Footer = () => {
           <div className={styles.footerSection}>
             <h4 className={styles.footerHeading}>{t.legal}</h4>
             <ul className={styles.footerLinks}>
-              <li><Link to="/legal">{t.legalTransparency}</Link></li>
-              <li><Link to="/contact">{t.contactUs}</Link></li>
+              <li><Link to="/legal" onClick={handleLinkClick}>{t.legalTransparency}</Link></li>
+              <li><Link to="/contact" onClick={handleLinkClick}>{t.contactUs}</Link></li>
             </ul>
           </div>
         </div>

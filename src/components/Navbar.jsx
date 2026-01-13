@@ -30,6 +30,16 @@ const Navbar = () => {
     setIsMenuOpen(false)
   }
 
+  const handleLinkClick = () => {
+    closeMenu()
+    // Scroll to top when navigating
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    })
+  }
+
   return (
     <motion.nav 
       className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}
@@ -40,7 +50,7 @@ const Navbar = () => {
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div className={styles.container}>
-        <Link to="/" className={styles.logo} onClick={closeMenu}>
+        <Link to="/" className={styles.logo} onClick={handleLinkClick}>
           <motion.img 
             src="/sankalp_logo.jpg" 
             alt="Sankalp Sewa Sansthan Kishangarh Logo"
@@ -116,7 +126,7 @@ const Navbar = () => {
                 <Link
                   to={item.path}
                   className={`${isActive(item.path) && !item.isCTA ? styles.active : ''} ${item.isCTA ? styles.donateCTA : ''}`}
-                  onClick={closeMenu}
+                  onClick={handleLinkClick}
                 >
                   {item.label}
                 </Link>
